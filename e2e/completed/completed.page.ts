@@ -3,7 +3,7 @@ import { ToDoPage } from "../todo/todo.page";
 export class CompletedPage {
 
     private todoList = 'ul.todo-list li';
-    private navigateToDoLink = 'ul.filters li a=All';
+    private navigateToDoLink = '//a[contains(text(),"All")]';
 
     get todoListLength() : number {
         return browser.$$(this.todoList).length;

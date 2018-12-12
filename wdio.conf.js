@@ -10,7 +10,7 @@ exports.config = {
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
     specs: [
-        './e2e/specs/**/.ts'
+        'e2e/**/*.spec.ts'
     ],
     // Patterns to exclude.
     exclude: [
@@ -32,7 +32,7 @@ exports.config = {
     // and 30 processes will get spawned. The property handles how many capabilities
     // from the same test should run tests.
     //
-    maxInstances: 10,
+    maxInstances: 1,
     //
     // If you have trouble getting all important capabilities together, check out the
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
@@ -46,6 +46,8 @@ exports.config = {
         //
         browserName: 'chrome'
     }],
+    debug: true,
+    execArgv: ['--inspect=127.0.0.1:5859'],
     //
     // ===================
     // Test Configurations
@@ -77,7 +79,7 @@ exports.config = {
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
     // gets prepended directly.
-    baseUrl: 'http://localhost',
+    baseUrl: 'http://todomvc.com',
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 10000,
@@ -112,6 +114,7 @@ exports.config = {
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
     // services: [],//
+    services: ['selenium-standalone'],
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
     // see also: http://webdriver.io/guide/testrunner/frameworks.html
@@ -119,6 +122,11 @@ exports.config = {
     // Make sure you have the wdio adapter package for the specific framework installed
     // before running any tests.
     framework: 'jasmine',
+     //
+    // Test reporter for stdout.
+    // The only one supported by default is 'dot'
+    // see also: http://webdriver.io/guide/reporters/dot.html
+    reporters: ['spec'],
     //
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
@@ -129,7 +137,7 @@ exports.config = {
     jasmineNodeOpts: {
         //
         // Jasmine default timeout
-        defaultTimeoutInterval: 10000,
+        defaultTimeoutInterval: 25000,
         //
         // The Jasmine framework allows interception of each assertion in order to log the state of the application
         // or website depending on the result. For example, it is pretty handy to take a screenshot every time
@@ -188,8 +196,8 @@ exports.config = {
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {Array.<String>} specs List of spec file paths that are to be run
      */
-    // beforeSession: function (config, capabilities, specs) {
-    // },
+     beforeSession: function (config, capabilities, specs) {
+    },
     /**
      * Gets executed before test execution begins. At this point you can access to all global
      * variables like `browser`. It is the perfect place to define custom commands.
@@ -197,9 +205,7 @@ exports.config = {
      * @param {Array.<String>} specs List of spec file paths that are to be run
      */
     before: function (capabilities, specs) {
-        var chai = require('chai');
-        global.expect = chai.expect;
-        chai.should();
+        require('ts-node/register'); 
     },
     /**
      * Runs before a WebdriverIO command gets executed.

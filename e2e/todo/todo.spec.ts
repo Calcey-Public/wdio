@@ -1,12 +1,12 @@
 import { expect } from 'chai';
 import { ToDoPage } from './todo.page';
 
-describe('Login page', () => {
+describe('todo page', () => {
     let n = 0;
     let todoPage: ToDoPage;
 
     afterEach((done) => {
-        const filename = './e2e/screenshots/Login_'.concat(String(n), '.png');
+        const filename = './e2e/screenshots/Todo_'.concat(String(n), '.png');
         browser.saveScreenshot(filename);
         n += 1;
     });

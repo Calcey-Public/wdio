@@ -41,6 +41,12 @@ Use a text editor to open it and do following changes.
     - In Capabilities section
         - Default drowser in wdio.conf.js is firefox, change it to chrome as we plan to use chrome driver in Selenium Standalone server. You can keep this as it is if you plan to use firfox driver.
         - Change max instance to 1 if you plan to debug
+        - Update services to work with selenium-standalone (services: ['selenium-standalone'])
+        - If you are debugging add/change following parameters,
+                debug: true
+                execArgv: ['--inspect=127.0.0.1:5859'] (listen on host:port as specified in launch.json for VSCode)
+                maxInstances: 1
+
     - Use onPrepare hook to create/clean screenshots taken on each test execution
         - ./e2e/screenshots - hold screenshots taken after each test case.
         - ./errorShots - hold screenshots taken by wdio when an error occured.
@@ -57,13 +63,10 @@ Project Structure (this project will test ToDo reat web application)
     |    |    |-> todo.page.ts
     |    |    |-> todo.spec.ts
     |    |
-    |    |-> active
-    |    |    |-> active.page.ts
-    |    |    |-> active.spec.ts
     |    |
     |    |-> completed
     |    |    |-> completed.page.ts
-    |    |    |-> completed.spec.ts
+    |    |    
 
 
 
